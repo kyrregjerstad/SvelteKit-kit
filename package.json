@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
+		"run-setup": "bun scripts/setup.ts",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -33,6 +34,7 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"@tailwindcss/vite": "^4.0.0",
 		"@tanstack/table-core": "^8.21.3",
+		"@types/bun": "^1.2.19",
 		"@types/node": "^22",
 		"@vitest/browser": "^3.2.3",
 		"bits-ui": "^2.9.1",
