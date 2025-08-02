@@ -1,28 +1,64 @@
-# sv
+# SvelteKit Project
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A modern SvelteKit application with authentication, database integration, and a comprehensive UI component library.
 
-## Creating a project
+## Quick Start
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Automated Setup
+
+The easiest way to get started is using the automated setup script:
 
 ```sh
-# create a new project in the current directory
-npx sv create
+# Run the setup script (requires Bun)
+bun run scripts/setup.ts
 
-# create a new project in my-app
-npx sv create my-app
+# Or if you have Bun installed globally
+bun scripts/setup.ts
 ```
 
-## Developing
+This script will:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- Install all dependencies with `pnpm install`
+- Create a local SQLite database file
+- Set up a `.env` file with placeholder values
+- Run database migrations with `pnpm db:push`
+
+### Manual Setup
+
+If you prefer to set up manually:
+
+1. **Install dependencies:**
+
+   ```sh
+   pnpm install
+   ```
+
+2. **Set up environment variables:**
+   Create a `.env` file in the project root with:
+
+   ```env
+   DATABASE_URL="file:./local.sqlite"
+   DATABASE_AUTH_TOKEN="replace-me"
+   GITHUB_CLIENT_ID="replace-me"
+   GITHUB_CLIENT_SECRET="replace-me"
+   GOOGLE_CLIENT_ID="replace-me"
+   GOOGLE_CLIENT_SECRET="replace-me"
+   ```
+
+3. **Initialize database:**
+   ```sh
+   pnpm db:push
+   ```
+
+## Development
+
+Start the development server:
 
 ```sh
-npm run dev
+pnpm run dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run dev -- --open
 ```
 
 ## Building
@@ -30,9 +66,45 @@ npm run dev -- --open
 To create a production version of your app:
 
 ```sh
-npm run build
+pnpm run build
 ```
 
-You can preview the production build with `npm run preview`.
+You can preview the production build with `pnpm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Database
+
+This project uses Drizzle ORM with SQLite:
+
+- **Push schema changes:** `pnpm db:push`
+- **Generate migrations:** `pnpm db:generate`
+- **Seed database:** `pnpm db:seed`
+
+## Authentication
+
+The project includes authentication setup for:
+
+- GitHub OAuth
+
+Configure your OAuth providers in the `.env` file and update the authentication settings in `src/lib/auth.ts`.
+
+## UI Components
+
+This project includes a comprehensive UI component library based on shadcn-svelte, located in `src/lib/components/ui/`.
+
+## Testing
+
+Run tests with:
+
+```sh
+# Unit tests
+pnpm test
+
+# E2E tests
+pnpm test:e2e
+```
+
+## Deployment
+
+To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+> **Note:** Make sure to update your environment variables for production deployment.
