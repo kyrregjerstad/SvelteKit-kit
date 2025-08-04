@@ -6,8 +6,8 @@
 
 <Card.Root class="mx-auto max-w-sm">
 	<Card.Header>
-		<Card.Title class="text-2xl">Login</Card.Title>
-		<Card.Description>Enter your email below to login to your account</Card.Description>
+		<Card.Title class="text-2xl">Sign Up</Card.Title>
+		<Card.Description>Create a new account to get started</Card.Description>
 	</Card.Header>
 	<Card.Content>
 		<Button
@@ -18,12 +18,12 @@
 					provider: 'github',
 					callbackURL: '/'
 				});
-			}}>Login with GitHub</Button
+			}}>Sign up with GitHub</Button
 		>
 
 		<div class="mt-4 text-center text-sm">
-			Don&apos;t have an account?
-			<a href="/sign-up" class="underline">Sign up</a>
+			Already have an account?
+			<a href="/login" class="underline">Login</a>
 		</div>
 	</Card.Content>
 </Card.Root>

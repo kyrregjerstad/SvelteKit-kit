@@ -1,6 +1,6 @@
 # SvelteKit Project
 
-A modern SvelteKit application with authentication, database integration, and a comprehensive UI component library.
+A modern SvelteKit application with authentication, database integration, and shadcn-svelte.
 
 ## Quick Start
 

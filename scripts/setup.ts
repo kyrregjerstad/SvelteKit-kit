@@ -43,6 +43,7 @@ try {
 		await setupEnvFile({
 			DATABASE_URL: 'file:./local.sqlite',
 			DATABASE_AUTH_TOKEN: 'replace-me',
+			PUBLIC_AUTH_URL: 'http://localhost:5173',
 			GITHUB_CLIENT_ID: 'replace-me',
 			GITHUB_CLIENT_SECRET: 'replace-me',
 			GOOGLE_CLIENT_ID: 'replace-me',

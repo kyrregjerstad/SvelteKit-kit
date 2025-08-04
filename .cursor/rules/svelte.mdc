@@ -3,92 +3,120 @@ globs: *.svelte
 alwaysApply: false
 ---
 
+<overview>
 You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+</overview>
 
-Key Principles
-
+<principles>
 - Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
 - Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
-- Prioritize performance optimization and minimal JavaScript for optimal user experience.
+- Prioritize performance optimization and minimal TypeScript for optimal user experience.
 - Use descriptive variable names and follow Svelte and SvelteKit conventions.
 - Organize files using SvelteKit's file-based routing system.
+- Always use TypeScript.
+- Always use Svelte 5 syntax, do not use Svelte 4 syntax.
+</principles>
 
-Code Style and Structure
-
-- Write concise, technical TypeScript or JavaScript code with accurate examples.
+<code-style>
+- Write concise, technical TypeScript code.
 - Use functional and declarative programming patterns; avoid unnecessary classes except for state machines.
 - Prefer iteration and modularization over code duplication.
 - Structure files: component logic, markup, styles, helpers, types.
 - Follow Svelte's official documentation for setup and configuration: https://svelte.dev/docs
+</code-style>
 
-Naming Conventions
-
+<naming-conventions>
 - Use PascalCase for component files (e.g., `components/AuthForm.svelte`).
 - Use PascalCase for component names in imports and usage.
 - Use camelCase for variables, functions, and props.
+</naming-conventions>
 
----
-
-TypeScript Usage
-
+<typescript>
 - Use TypeScript for all code; prefer interfaces over types.
 - Avoid enums; use const objects instead.
-- Use functional components with TypeScript interfaces for props.
 - Enable strict mode in TypeScript for better type safety.
+</typescript>
 
-Svelte Runes
+<code-examples>
+<example name="$state">
+Declare reactive state
 
-- `$state`: Declare reactive state
-  ```typescript
-  // this makes the count reactive
-  let count = $state(0);
-  ```
-- `$derived`: Compute derived values
-  ```typescript
-  // this makes the doubled reactive
-  let doubled = $derived(count * 2);
-  ```
-- `$derived.by`: Compute derived values with a function
+```typescript
+// this makes the count reactive
+let count = $state(0);
+```
 
-  ```typescript
-  // this makes the doubled reactive, used for complex calculations
-  let doubled = $derived.by(() => count * 2));
-  ```
+</example>
 
-- `$effect`: Manage side effects and lifecycle
-  ```typescript
-  $effect(() => {
-  	console.log(`Count is now ${count}`);
-  });
-  ```
-- `$props`: Declare component props
-  ```typescript
-  interface Props {
-  	optionalProp?: number;
-  	requiredProp: string;
-  }
-  let { optionalProp = 42, requiredProp }: Props = $props();
-  // NEVER pass Props as a generic to $props()
-  ```
-- `$bindable`: Create two-way bindable props
-  ```typescript
-  let { bindableProp = $bindable() } = $props();
-  ```
-- `$inspect`: Debug reactive state (development only)
-  ```typescript
-  $inspect(count);
-  ```
+<example name="$derived">
+Compute derived values
 
-UI and Styling
+```typescript
+// this makes the doubled reactive
+let doubled = $derived(count * 2);
+```
 
+</example>
+
+<example name="$derived.by">
+Compute derived values with a function
+```typescript
+// this makes the doubled reactive, used for complex calculations
+let doubled = $derived.by(() => count * 2));
+```
+</example>
+
+<example name="$effect">
+Manage side effects and lifecycle
+
+```typescript
+$effect(() => {});
+```
+
+</example>
+
+<example name="$props">
+Declare component props
+
+```typescript
+interface Props {
+	optionalProp?: number;
+	requiredProp: string;
+}
+let { optionalProp = 42, requiredProp }: Props = $props();
+// NEVER pass Props as a generic to $props()
+```
+
+</example>
+
+<example name="$bindable">
+Create two-way bindable props
+
+```typescript
+let { bindableProp = $bindable() } = $props();
+```
+
+</example>
+
+<example name="$inspect">
+Debug reactive state (development only)
+
+```typescript
+// this a reactive console.log
+$inspect(count);
+```
+
+</example>
+</code-examples>
+
+<ui-styling>
 - Use Tailwind CSS for utility-first styling approach.
 - Leverage Shadcn components for pre-built, customizable UI elements.
 - Import Shadcn components from `$lib/components/ui`.
 - Organize Tailwind classes using the `cn()` utility from `$lib/utils`.
 - Use Svelte's built-in transition and animation features.
 
-Shadcn Color Conventions
-
+<color-conventions>
 - Use `background` and `foreground` convention for colors.
 - Define CSS variables without color space function:
   ```css
@@ -112,69 +140,71 @@ Shadcn Color Conventions
   - `--destructive`, `--destructive-foreground`: Destructive action colors
   - `--ring`: Focus ring color
   - `--radius`: Border radius for components
+</color-conventions>
+</ui-styling>
 
-Component Development
-
+<component-development>
 - Create .svelte files for Svelte components.
 - Use .svelte.ts files for component logic and state machines.
 - Implement proper component composition and reusability.
 - Use Svelte's props for data passing.
 - Leverage Svelte's reactive declarations for local state management.
 - Use Svelte's `onclick` directive for event handling, do not use `on:click`.
+</component-development>
 
-State Management
+<state-management>
+Use classes for complex state management (state machines):
 
-- Use classes for complex state management (state machines):
+```typescript
+// counter.svelte.ts
+class Counter {
+	count = $state(0);
+	incrementor = $state(1);
 
-  ```typescript
-  // counter.svelte.ts
-  class Counter {
-  	count = $state(0);
-  	incrementor = $state(1);
+	increment() {
+		this.count += this.incrementor;
+	}
 
-  	increment() {
-  		this.count += this.incrementor;
-  	}
+	resetCount() {
+		this.count = 0;
+	}
 
-  	resetCount() {
-  		this.count = 0;
-  	}
+	resetIncrementor() {
+		this.incrementor = 1;
+	}
+}
 
-  	resetIncrementor() {
-  		this.incrementor = 1;
-  	}
-  }
+export const counter = new Counter();
+```
 
-  export const counter = new Counter();
-  ```
+Use in components:
 
-- Use in components:
+```svelte
+<script lang="ts">
+	import { counter } from './counter.svelte.ts';
+</script>
 
-  ```svelte
-  <script lang="ts">
-  	import { counter } from './counter.svelte.ts';
-  </script>
+<button onclick={() => counter.increment()}>
+	Count: {counter.count}
+</button>
+```
 
-  <button onclick={() => counter.increment()}>
-  	Count: {counter.count}
-  </button>
-  ```
+</state-management>
 
-Routing and Pages
-
+<routing>
 - Utilize SvelteKit's file-based routing system in the src/routes/ directory.
 - Implement dynamic routes using [slug] syntax.
 - Use load functions for server-side data fetching and pre-rendering.
 - Implement proper error handling with +error.svelte pages.
+</routing>
 
-Server-Side Rendering (SSR) and Static Site Generation (SSG)
-
+<ssr-ssg>
 - Leverage SvelteKit's SSR capabilities for dynamic content.
 - Implement SSG for static pages using prerender option.
 - Use the adapter-auto for automatic deployment configuration.
+</ssr-ssg>
 
-Performance Optimization
-
+<performance>
 - Leverage Svelte's compile-time optimizations.
 - Use `{#key}` blocks to force re-rendering of components when needed.
 - Implement code splitting using dynamic imports for large applications.
@@ -182,29 +212,29 @@ Performance Optimization
 - Use `$effect.tracking()` to optimize effect dependencies.
 - Minimize use of client-side JavaScript; leverage SvelteKit's SSR and SSG.
 - Implement proper lazy loading for images and other assets.
+</performance>
 
-Data Fetching and API Routes
-
+<data-fetching>
 - Use load functions for server-side data fetching.
 - Implement proper error handling for data fetching operations.
 - Create API routes in the src/routes/api/ directory.
 - Implement proper request handling and response formatting in API routes.
 - Use SvelteKit's hooks for global API middleware.
+</data-fetching>
 
-SEO and Meta Tags
-
+<seo>
 - Use Svelte:head component for adding meta information.
 - Implement canonical URLs for proper SEO.
 - Create reusable SEO components for consistent meta tag management.
+</seo>
 
-Forms and Actions
-
+<forms>
 - Utilize SvelteKit's form actions for server-side form handling.
 - Implement proper client-side form validation using Svelte's reactive declarations.
 - Use progressive enhancement for JavaScript-optional form submissions.
+</forms>
 
-Key Conventions
-
+<conventions>
 1. Embrace Svelte's simplicity and avoid over-engineering solutions.
 2. Use SvelteKit for full-stack applications with SSR and API routes.
 3. Prioritize Web Vitals (LCP, FID, CLS) for performance optimization.
@@ -212,13 +242,269 @@ Key Conventions
 5. Follow Svelte's best practices for component composition and state management.
 6. Ensure cross-browser compatibility by testing on multiple platforms.
 7. Keep your Svelte and SvelteKit versions up to date.
+</conventions>
 
-Documentation
-
+<documentation>
 - Svelte 5 Runes: https://svelte-5-preview.vercel.app/docs/runes
 - Svelte Documentation: https://svelte.dev/docs
 - SvelteKit Documentation: https://kit.svelte.dev/docs
 
 Refer to Svelte and SvelteKit documentation for detailed information on components, internationalization, and best practices.
+</documentation>
+<overview>
+You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+</overview>
 
----
+<principles>
+- Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
+- Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
+- Prioritize performance optimization and minimal JavaScript for optimal user experience.
+- Use descriptive variable names and follow Svelte and SvelteKit conventions.
+- Organize files using SvelteKit's file-based routing system.
+</principles>
+
+<code-style>
+- Write concise, technical TypeScript or JavaScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid unnecessary classes except for state machines.
+- Prefer iteration and modularization over code duplication.
+- Structure files: component logic, markup, styles, helpers, types.
+- Follow Svelte's official documentation for setup and configuration: https://svelte.dev/docs
+</code-style>
+
+<naming-conventions>
+- Use PascalCase for component files (e.g., `components/AuthForm.svelte`).
+- Use PascalCase for component names in imports and usage.
+- Use camelCase for variables, functions, and props.
+</naming-conventions>
+
+<typescript>
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use const objects instead.
+- Use functional components with TypeScript interfaces for props.
+- Enable strict mode in TypeScript for better type safety.
+</typescript>
+
+<code-examples>
+<example name="$state">
+Declare reactive state
+
+```typescript
+// this makes the count reactive
+let count = $state(0);
+```
+
+</example>
+
+<example name="$derived">
+Compute derived values
+
+```typescript
+// this makes the doubled reactive
+let doubled = $derived(count * 2);
+```
+
+</example>
+
+<example name="$derived.by">
+Compute derived values with a function
+
+```typescript
+// this makes the doubled reactive, used for complex calculations
+let doubled = $derived.by(() => count * 2));
+```
+
+</example>
+
+<example name="$effect">
+Manage side effects and lifecycle
+
+```typescript
+let size = $state(50);
+let color = $state('#ff3e00');
+
+let canvas;
+
+$effect(() => {
+	const context = canvas.getContext('2d');
+	context.clearRect(0, 0, canvas.width, canvas.height);
+
+	// this will re-run whenever `color` or `size` change
+	context.fillStyle = color;
+	context.fillRect(0, 0, size, size);
+});
+```
+
+</example>
+
+<example name="$props">
+
+Declare component props
+
+```typescript
+interface Props {
+	optionalProp?: number;
+	requiredProp: string;
+}
+let { optionalProp = 42, requiredProp }: Props = $props();
+// NEVER pass Props as a generic to $props()
+```
+
+</example>
+
+<example name="$bindable">
+Create two-way bindable props
+
+```typescript
+let { bindableProp = $bindable() } = $props();
+```
+
+</example>
+
+<example name="$inspect">
+Debug reactive state (development only)
+
+```typescript
+// this a reactive console.log
+$inspect(count);
+```
+
+</example>
+</code-examples>
+
+<ui-styling>
+- Use Tailwind 4 for utility-first styling approach.
+- Leverage Shadcn components for pre-built, customizable UI elements.
+- Import Shadcn components from `$lib/components/ui`.
+- Organize Tailwind classes using the `cn()` utility from `$lib/utils`.
+- Use Svelte's built-in transition and animation features.
+
+<color-conventions>
+- Use `background` and `foreground` convention for colors.
+- Usage example:
+  ```svelte
+  <div class="bg-primary text-primary-foreground">Hello</div>
+  ```
+- Key color variables:
+  - `--background`, `--foreground`: Default body colors
+  - `--muted`, `--muted-foreground`: Muted backgrounds
+  - `--card`, `--card-foreground`: Card backgrounds
+  - `--popover`, `--popover-foreground`: Popover backgrounds
+  - `--border`: Default border color
+  - `--input`: Input border color
+  - `--primary`, `--primary-foreground`: Primary button colors
+  - `--secondary`, `--secondary-foreground`: Secondary button colors
+  - `--accent`, `--accent-foreground`: Accent colors
+  - `--destructive`, `--destructive-foreground`: Destructive action colors
+  - `--ring`: Focus ring color
+  - `--radius`: Border radius for components
+</color-conventions>
+</ui-styling>
+
+<component-development>
+- Create .svelte files for Svelte components.
+- Use .svelte.ts files for component logic and state machines.
+- Implement proper component composition and reusability.
+- Use Svelte's props for data passing.
+- Leverage Svelte's reactive declarations for local state management.
+- Use Svelte's `onclick` directive for event handling, do not use `on:click`.
+</component-development>
+
+<state-management>
+Use classes for complex state management (state machines):
+
+```typescript
+// counter.svelte.ts
+class Counter {
+	count = $state(0);
+	incrementor = $state(1);
+
+	increment() {
+		this.count += this.incrementor;
+	}
+
+	resetCount() {
+		this.count = 0;
+	}
+
+	resetIncrementor() {
+		this.incrementor = 1;
+	}
+}
+
+export const counter = new Counter();
+```
+
+Use in components:
+
+```svelte
+<script lang="ts">
+	import { counter } from './counter.svelte.ts';
+</script>
+
+<button onclick={() => counter.increment()}>
+	Count: {counter.count}
+</button>
+```
+
+</state-management>
+
+<routing>
+- Utilize SvelteKit's file-based routing system in the src/routes/ directory.
+- Implement dynamic routes using [slug] syntax.
+- Use load functions for server-side data fetching and pre-rendering.
+- Implement proper error handling with +error.svelte pages.
+</routing>
+
+<ssr-ssg>
+- Leverage SvelteKit's SSR capabilities for dynamic content.
+- Implement SSG for static pages using prerender option.
+- Use the adapter-auto for automatic deployment configuration.
+</ssr-ssg>
+
+<performance>
+- Leverage Svelte's compile-time optimizations.
+- Use `{#key}` blocks to force re-rendering of components when needed.
+- Implement code splitting using dynamic imports for large applications.
+- Profile and monitor performance using browser developer tools.
+- Use `$effect.tracking()` to optimize effect dependencies.
+- Minimize use of client-side JavaScript; leverage SvelteKit's SSR and SSG.
+- Implement proper lazy loading for images and other assets.
+</performance>
+
+<data-fetching>
+- Use load functions for server-side data fetching.
+- Implement proper error handling for data fetching operations.
+- Create API routes in the src/routes/api/ directory.
+- Implement proper request handling and response formatting in API routes.
+- Use SvelteKit's hooks for global API middleware.
+</data-fetching>
+
+<seo>
+- Use Svelte:head component for adding meta information.
+- Implement canonical URLs for proper SEO.
+- Create reusable SEO components for consistent meta tag management.
+</seo>
+
+<forms>
+- Utilize SvelteKit's form actions for server-side form handling.
+- Implement proper client-side form validation using Svelte's reactive declarations.
+- Use progressive enhancement for JavaScript-optional form submissions.
+</forms>
+
+<conventions>
+1. Embrace Svelte's simplicity and avoid over-engineering solutions.
+2. Use SvelteKit for full-stack applications with SSR and API routes.
+3. Prioritize Web Vitals (LCP, FID, CLS) for performance optimization.
+4. Use environment variables for configuration management.
+5. Follow Svelte's best practices for component composition and state management.
+6. Ensure cross-browser compatibility by testing on multiple platforms.
+7. Keep your Svelte and SvelteKit versions up to date.
+</conventions>
+
+<documentation>
+- Svelte 5 Runes: https://svelte-5-preview.vercel.app/docs/runes
+- Svelte Documentation: https://svelte.dev/docs
+- SvelteKit Documentation: https://kit.svelte.dev/docs
+
+Refer to Svelte and SvelteKit documentation for detailed information on components, internationalization, and best practices.
+</documentation>
