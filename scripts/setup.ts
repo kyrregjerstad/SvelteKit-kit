@@ -1,14 +1,11 @@
-import { resolve, dirname } from 'node:path';
-
-// Get project root (one level up from scripts directory)
-const projectRoot = resolve(dirname(import.meta.dir), '.');
+const projectRoot = `${import.meta.dir}/..`;
 
 console.log('🚀 Setting up SvelteKit project...\n');
 
 try {
-	// Step 1: Run pnpm install
+	// Step 1: Run bun install
 	console.log('📦 Installing dependencies...');
-	const installProc = Bun.spawn(['pnpm', 'install'], {
+	const installProc = Bun.spawn(['bun', 'install'], {
 		stdout: 'inherit',
 		stderr: 'inherit',
 		cwd: projectRoot
@@ -17,13 +14,13 @@ try {
 	await installProc.exited;
 
 	if (installProc.exitCode !== 0) {
-		throw new Error(`pnpm install failed with exit code ${installProc.exitCode}`);
+		throw new Error(`bun install failed with exit code ${installProc.exitCode}`);
 	}
 
 	console.log('✅ Dependencies installed\n');
 
 	// Step 2: Create local.sqlite file
-	const dbPath = resolve(projectRoot, 'local.sqlite');
+	const dbPath = `${projectRoot}/local.sqlite`;
 	const dbFile = Bun.file(dbPath);
 
 	if (!(await dbFile.exists())) {
@@ -35,7 +32,7 @@ try {
 	}
 
 	// Step 3: Create .env file
-	const envPath = resolve(projectRoot, '.env');
+	const envPath = `${projectRoot}/.env`;
 	const envFile = Bun.file(envPath);
 
 	if (!(await envFile.exists())) {
@@ -43,7 +40,7 @@ try {
 		await setupEnvFile({
 			DATABASE_URL: 'file:./local.sqlite',
 			DATABASE_AUTH_TOKEN: 'replace-me',
-			PUBLIC_AUTH_URL: 'http://localhost:5173',
+			PUBLIC_APP_URL: 'http://localhost:5173',
 			GITHUB_CLIENT_ID: 'replace-me',
 			GITHUB_CLIENT_SECRET: 'replace-me',
 			GOOGLE_CLIENT_ID: 'replace-me',
@@ -56,7 +53,7 @@ try {
 
 	// Step 4: Run db:push
 	console.log('🔄 Running db:push...');
-	const pushProc = Bun.spawn(['pnpm', 'db:push'], {
+	const pushProc = Bun.spawn(['bun', 'run', 'db:push'], {
 		stdin: 'inherit',
 		stdout: 'inherit',
 		stderr: 'inherit',
@@ -66,8 +63,8 @@ try {
 
 	console.log('🎉 Setup complete! Your SvelteKit project is ready to go.');
 	console.log('\nNext steps:');
-	console.log('  pnpm dev        # Start development server');
-	console.log('  pnpm db:seed    # Seed your database (if needed)');
+	console.log('  bun dev        # Start development server');
+	console.log('  bun run db:seed    # Seed your database (if needed)');
 } catch (error) {
 	console.error('❌ Setup failed:', error instanceof Error ? error.message : error);
 	process.exit(1);
@@ -79,7 +76,7 @@ try {
  * @param append - Whether to append to existing file (default: false)
  */
 async function setupEnvFile(envVars: Record<string, string>, append: boolean = false) {
-	const envPath = resolve(projectRoot, '.env');
+	const envPath = `${projectRoot}/.env`;
 	const envFile = Bun.file(envPath);
 
 	let content = '';
@@ -99,3 +96,5 @@ async function setupEnvFile(envVars: Record<string, string>, append: boolean = f
 
 	await Bun.write(envPath, content);
 }
+
+export {};

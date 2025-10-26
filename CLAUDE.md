@@ -4,26 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Package Manager
 
-Use `pnpm` for all package management operations.
+Use `bun` for all package management operations.
 
 ## Development Commands
 
-- **Start dev server**: `pnpm run dev`
-- **Build production**: `pnpm run build`
-- **Preview build**: `pnpm run preview`
-- **Type checking**: `pnpm run check` (with watch: `pnpm run check:watch`)
-- **Linting**: `pnpm run lint`
-- **Formatting**: `pnpm run format`
-- **All tests**: `pnpm test`
-- **Unit tests**: `pnpm run test:unit`
-- **E2E tests**: `pnpm run test:e2e`
+- **Start dev server**: `bun run dev`
+- **Build production**: `bun run build`
+- **Preview build**: `bun run preview`
+- **Type checking**: `bun run check` (with watch: `bun run check:watch`)
+- **Linting**: `bun run lint`
+- **Formatting**: `bun run format`
+- **All tests**: `bun test`
+- **Unit tests**: `bun run test:unit`
+- **E2E tests**: `bun run test:e2e`
 
 ## Database Commands
 
-- **Push schema**: `pnpm run db:push`
-- **Generate migrations**: `pnpm run db:generate`
-- **Run migrations**: `pnpm run db:migrate`
-- **Database studio**: `pnpm run db:studio`
+- **Push schema**: `bun run db:push`
+- **Generate migrations**: `bun run db:generate`
+- **Run migrations**: `bun run db:migrate`
+- **Database studio**: `bun run db:studio`
 
 ## Architecture
 

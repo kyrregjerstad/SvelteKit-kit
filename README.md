@@ -18,10 +18,10 @@ bun scripts/setup.ts
 
 This script will:
 
-- Install all dependencies with `pnpm install`
+- Install all dependencies with `bun install`
 - Create a local SQLite database file
 - Set up a `.env` file with placeholder values
-- Run database migrations with `pnpm db:push`
+- Run database migrations with `bun db:push`
 
 ### Manual Setup
 
@@ -30,7 +30,7 @@ If you prefer to set up manually:
 1. **Install dependencies:**
 
    ```sh
-   pnpm install
+   bun install
    ```
 
 2. **Set up environment variables:**
@@ -47,7 +47,7 @@ If you prefer to set up manually:
 
 3. **Initialize database:**
    ```sh
-   pnpm db:push
+   bun db:push
    ```
 
 ## Development
@@ -55,10 +55,10 @@ If you prefer to set up manually:
 Start the development server:
 
 ```sh
-pnpm run dev
+bun run dev
 
 # or start the server and open the app in a new browser tab
-pnpm run dev -- --open
+bun run dev -- --open
 ```
 
 ## Building
@@ -66,18 +66,18 @@ pnpm run dev -- --open
 To create a production version of your app:
 
 ```sh
-pnpm run build
+bun run build
 ```
 
-You can preview the production build with `pnpm run preview`.
+You can preview the production build with `bun run preview`.
 
 ## Database
 
 This project uses Drizzle ORM with SQLite:
 
-- **Push schema changes:** `pnpm db:push`
-- **Generate migrations:** `pnpm db:generate`
-- **Seed database:** `pnpm db:seed`
+- **Push schema changes:** `bun db:push`
+- **Generate migrations:** `bun db:generate`
+- **Seed database:** `bun db:seed`
 
 ## Authentication
 
@@ -97,10 +97,10 @@ Run tests with:
 
 ```sh
 # Unit tests
-pnpm test
+bun test
 
 # E2E tests
-pnpm test:e2e
+bun test:e2e
 ```
 
 ## Deployment
