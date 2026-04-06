@@ -22,7 +22,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 			return svelteKitHandler({ event, resolve, auth, building });
 		} else {
-			redirect(307, '/sign-in');
+			redirect(307, '/login');
 		}
 	} else {
 		return svelteKitHandler({ event, resolve, auth, building });
