@@ -17,6 +17,6 @@ export const auth = betterAuth({
 		}
 	},
 	// there's a type issue here for now, but it seems to work fine
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// oxlint-disable-next-line @typescript-eslint/no-explicit-any
 	plugins: [sveltekitCookies(getRequestEvent as any)]
 });
