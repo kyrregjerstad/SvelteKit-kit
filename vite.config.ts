@@ -1,9 +1,4 @@
-import devtoolsJson from 'vite-plugin-devtools-json';
-import tailwindcss from '@tailwindcss/vite';
-import { sveltekit } from '@sveltejs/kit/vite';
-import { varlockVitePlugin } from '@varlock/vite-integration';
 import { defineConfig } from 'vite-plus';
-import { playwright } from 'vite-plus/test/browser-playwright';
 
 export default defineConfig({
 	staged: {
@@ -34,8 +29,8 @@ export default defineConfig({
 			'**/.vercel',
 			'**/.netlify',
 			'**/.wrangler',
-			'.svelte-kit',
-			'build',
+			'**/.svelte-kit',
+			'**/build',
 			'**/.DS_Store',
 			'**/Thumbs.db',
 			'**/.env',
@@ -207,7 +202,7 @@ export default defineConfig({
 				jsPlugins: ['eslint-plugin-svelte']
 			},
 			{
-				files: ['src/lib/components/ui/**'],
+				files: ['apps/web/src/lib/components/ui/**'],
 				rules: {
 					'svelte/no-navigation-without-resolve': 'off',
 					'svelte/prefer-svelte-reactivity': 'off'
@@ -226,7 +221,7 @@ export default defineConfig({
 		trailingComma: 'none',
 		printWidth: 100,
 		sortTailwindcss: {
-			stylesheet: './src/app.css'
+			stylesheet: './apps/web/src/app.css'
 		},
 		sortPackageJson: false,
 		ignorePatterns: [
@@ -237,35 +232,6 @@ export default defineConfig({
 			'bun.lockb',
 			'/static/',
 			'/drizzle/'
-		]
-	},
-	plugins: [varlockVitePlugin(), tailwindcss(), sveltekit(), devtoolsJson()],
-	test: {
-		expect: { requireAssertions: true },
-		projects: [
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'client',
-					browser: {
-						enabled: true,
-						provider: playwright(),
-						instances: [{ browser: 'chromium' }]
-					},
-					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-					exclude: ['src/lib/server/**'],
-					setupFiles: ['./vitest-setup-client.ts']
-				}
-			},
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'server',
-					environment: 'node',
-					include: ['src/**/*.{test,spec}.{js,ts}'],
-					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
-				}
-			}
 		]
 	}
 });
