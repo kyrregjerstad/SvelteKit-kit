@@ -42,7 +42,7 @@ Use `bun` for all package management operations.
 
 ### Database Schema
 
-Located in `src/lib/server/db/schema.ts`:
+Located in `packages/db/src/schema.ts`:
 
 - `user` - User accounts with GitHub OAuth data
 - `session` - User sessions

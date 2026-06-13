@@ -15,11 +15,10 @@
       "name": "@sveltekit-kit/web",
       "version": "0.0.1",
       "dependencies": {
-        "@libsql/client": "^0.17.3",
+        "@sveltekit-kit/db": "workspace:*",
         "@varlock/1password-plugin": "^1.2.0",
         "@varlock/vite-integration": "^1.1.3",
         "better-auth": "^1.6.18",
-        "drizzle-orm": "^0.45.2",
         "varlock": "^1.6.1",
       },
       "devDependencies": {
@@ -37,7 +36,6 @@
         "@types/node": "^25.9.3",
         "bits-ui": "^2.18.1",
         "clsx": "^2.1.1",
-        "drizzle-kit": "^0.31.10",
         "embla-carousel-svelte": "^8.6.0",
         "eslint-plugin-svelte": "^3.19.0",
         "formsnap": "^2.0.1",
@@ -61,6 +59,19 @@
         "vite-plus": "latest",
         "vitest": "npm:@voidzero-dev/vite-plus-test@latest",
         "vitest-browser-svelte": "^2.1.1",
+      },
+    },
+    "packages/db": {
+      "name": "@sveltekit-kit/db",
+      "version": "0.0.1",
+      "dependencies": {
+        "@libsql/client": "^0.17.3",
+        "drizzle-orm": "^0.45.2",
+      },
+      "devDependencies": {
+        "@types/bun": "^1.3.14",
+        "drizzle-kit": "^0.31.10",
+        "varlock": "^1.6.1",
       },
     },
   },
@@ -364,6 +375,8 @@
     "@sveltejs/load-config": ["@sveltejs/load-config@0.1.1", "", {}, "sha512-BXXm+VOH/9X4N7Dd1iZ2MqA1h7M+9i2noI8QYuLDY8QcN2WHYn7D/VK/+IJNfcAmRw7ACNJ538UT9GXIhnBTiA=="],
 
     "@sveltejs/vite-plugin-svelte": ["@sveltejs/vite-plugin-svelte@7.1.2", "", { "dependencies": { "deepmerge": "^4.3.1", "magic-string": "^0.30.21", "obug": "^2.1.0", "vitefu": "^1.1.2" }, "peerDependencies": { "svelte": "^5.46.4", "vite": "^8.0.0-beta.7 || ^8.0.0" } }, "sha512-DrUBA2UXRfDmUX/ZTiEopd3X40yavsJF1FX2RygcuIScHL7o5YX1fMvoYnDhjeJQC4weCOklirpNWlcb2NiSeA=="],
+
+    "@sveltekit-kit/db": ["@sveltekit-kit/db@workspace:packages/db"],
 
     "@sveltekit-kit/web": ["@sveltekit-kit/web@workspace:apps/web"],
 

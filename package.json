@@ -17,10 +17,10 @@
 		"test": "vp run --filter ./apps/web test",
 		"test:unit": "vp run --filter ./apps/web test:unit",
 		"test:e2e": "vp run --filter ./apps/web test:e2e",
-		"db:push": "vp run --filter ./apps/web db:push",
-		"db:generate": "vp run --filter ./apps/web db:generate",
-		"db:migrate": "vp run --filter ./apps/web db:migrate",
-		"db:studio": "vp run --filter ./apps/web db:studio"
+		"db:push": "vp run --filter ./packages/db db:push",
+		"db:generate": "vp run --filter ./packages/db db:generate",
+		"db:migrate": "vp run --filter ./packages/db db:migrate",
+		"db:studio": "vp run --filter ./packages/db db:studio"
 	},
 	"devDependencies": {
 		"eslint-plugin-svelte": "^3.19.0",

@@ -1,0 +1,31 @@
+{
+	"name": "@sveltekit-kit/db",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"default": "./src/index.ts"
+		},
+		"./schema": {
+			"types": "./src/schema.ts",
+			"default": "./src/schema.ts"
+		}
+	},
+	"scripts": {
+		"db:push": "cd ../../apps/web && varlock run -- drizzle-kit push --config ../../packages/db/drizzle.config.ts",
+		"db:generate": "cd ../../apps/web && varlock run -- drizzle-kit generate --config ../../packages/db/drizzle.config.ts",
+		"db:migrate": "cd ../../apps/web && varlock run -- drizzle-kit migrate --config ../../packages/db/drizzle.config.ts",
+		"db:studio": "cd ../../apps/web && varlock run -- drizzle-kit studio --config ../../packages/db/drizzle.config.ts"
+	},
+	"dependencies": {
+		"@libsql/client": "^0.17.3",
+		"drizzle-orm": "^0.45.2"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.3.14",
+		"drizzle-kit": "^0.31.10",
+		"varlock": "^1.6.1"
+	}
+}

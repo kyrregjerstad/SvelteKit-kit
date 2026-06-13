@@ -1,4 +1,5 @@
-const projectRoot = `${import.meta.dir}/..`;
+const appRoot = `${import.meta.dir}/..`;
+const workspaceRoot = `${appRoot}/../..`;
 
 console.log('🚀 Setting up SvelteKit project...\n');
 
@@ -8,7 +9,7 @@ try {
 	const installProc = Bun.spawn(['bun', 'install'], {
 		stdout: 'inherit',
 		stderr: 'inherit',
-		cwd: projectRoot
+		cwd: workspaceRoot
 	});
 
 	await installProc.exited;
@@ -20,7 +21,7 @@ try {
 	console.log('✅ Dependencies installed\n');
 
 	// Step 2: Create local.sqlite file
-	const dbPath = `${projectRoot}/local.sqlite`;
+	const dbPath = `${appRoot}/local.sqlite`;
 	const dbFile = Bun.file(dbPath);
 
 	if (!(await dbFile.exists())) {
@@ -37,7 +38,7 @@ try {
 		stdin: 'inherit',
 		stdout: 'inherit',
 		stderr: 'inherit',
-		cwd: projectRoot
+		cwd: workspaceRoot
 	});
 	await pushProc.exited;
 
@@ -47,7 +48,7 @@ try {
 	console.log('  bun run db:seed    # Seed your database (if needed)');
 } catch (error) {
 	console.error('❌ Setup failed:', error instanceof Error ? error.message : error);
-	process.exit(1);
+	Bun.exit(1);
 }
 
 export {};

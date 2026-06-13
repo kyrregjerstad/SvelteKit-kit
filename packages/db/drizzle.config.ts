@@ -2,7 +2,7 @@ import { defineConfig } from 'drizzle-kit';
 import { ENV } from 'varlock/env';
 
 export default defineConfig({
-	schema: './src/lib/server/db/schema.ts',
+	schema: '../../packages/db/src/schema.ts',
 	dialect: 'turso',
 	dbCredentials: {
 		authToken: ENV.DATABASE_AUTH_TOKEN,

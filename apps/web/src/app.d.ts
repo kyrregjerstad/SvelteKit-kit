@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { DbSession, DbUser } from '$lib/server/db/schema';
+import type { DbSession, DbUser } from '@sveltekit-kit/db/schema';
 
 // for information about these interfaces
 declare global {
